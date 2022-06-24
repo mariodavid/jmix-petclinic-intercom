@@ -1,9 +1,13 @@
 package io.jmix.petclinic.screen.main;
 
 import com.vaadin.server.Page;
+import com.vaadin.ui.JavaScript;
+import com.vaadin.ui.UI;
 import io.jmix.core.DataManager;
 import io.jmix.core.security.CurrentAuthentication;
+import io.jmix.petclinic.entity.User;
 import io.jmix.petclinic.entity.visit.Visit;
+import io.jmix.petclinic.widgets.IntercomIntegration;
 import io.jmix.petclinic.screen.visit.MyVisits;
 import io.jmix.ui.ScreenBuilders;
 import io.jmix.ui.ScreenTools;
@@ -56,6 +60,20 @@ public class MainScreen extends Screen implements Window.HasWorkArea {
     @Autowired
     protected MessageBundle messageBundle;
 
+    @Subscribe
+    public void onBeforeShow(BeforeShowEvent event) {
+        IntercomIntegration intercom = new IntercomIntegration("s34blqos");
+        intercom.setUserEmail(currentUser().getEmail());
+        intercom.setUserId(currentUser().getId().toString());
+        intercom.extend(UI.getCurrent());
+        intercom.setUserData("extraAttribute", "John Doe");
+    }
+
+    private User currentUser() {
+        return (User) currentAuthentication.getUser();
+    }
+
+
     @Override
     public AppWorkArea getWorkArea() {
         return workArea;
@@ -73,6 +91,7 @@ public class MainScreen extends Screen implements Window.HasWorkArea {
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
+
         screenTools.openDefaultScreen(
                 UiControllerUtils.getScreenContext(this).getScreens());
 

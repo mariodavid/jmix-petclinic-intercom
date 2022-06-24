@@ -58,6 +58,7 @@
                             align="BOTTOM_RIGHT"
                             action="switchThemeMode"/>
                 </initialLayout>
+
             </workArea>
         </cssLayout>
     </layout>
