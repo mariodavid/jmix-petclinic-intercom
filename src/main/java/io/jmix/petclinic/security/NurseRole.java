@@ -7,6 +7,7 @@ import io.jmix.petclinic.entity.pet.PetType;
 import io.jmix.petclinic.entity.veterinarian.Specialty;
 import io.jmix.petclinic.entity.veterinarian.Veterinarian;
 import io.jmix.petclinic.entity.visit.Visit;
+import io.jmix.petclinic.entity.visit.VisitCancellation;
 import io.jmix.security.model.EntityAttributePolicyAction;
 import io.jmix.security.model.EntityPolicyAction;
 import io.jmix.security.role.annotation.EntityAttributePolicy;
@@ -48,9 +49,13 @@ public interface NurseRole {
     @EntityPolicy(entityClass = PetType.class, actions = EntityPolicyAction.READ)
     void petType();
 
-    @MenuPolicy(menuIds = {"application-petclinic", "petclinic_Owner.browse", "petclinic_Pet.browse", "petclinic_Visit.browse", "application-masterdata", "petclinic_Veterinarian.browse", "petclinic_Specialty.browse", "petclinic_PetType.browse", "petclinic_User.browse"})
+    @MenuPolicy(menuIds = {"application-petclinic", "petclinic_Owner.browse", "petclinic_Pet.browse", "petclinic_Visit.browse", "application-masterdata", "petclinic_Veterinarian.browse", "petclinic_Specialty.browse", "petclinic_PetType.browse", "petclinic_User.browse", "petclinic_VisitCancellation.browse"})
     void commonMenus();
 
-    @ScreenPolicy(screenIds = {"petclinic_Owner.browse", "petclinic_Pet.browse", "petclinic_Visit.browse", "petclinic_Veterinarian.browse", "petclinic_Specialty.browse", "petclinic_PetType.browse", "petclinic_MyVisits", "petclinic_Owner.edit", "petclinic_Pet.edit", "petclinic_Veterinarian.edit", "petclinic_Visit.edit", "petclinic_MainScreen", "petclinic_LoginScreen"})
+    @ScreenPolicy(screenIds = {"petclinic_Owner.browse", "petclinic_Pet.browse", "petclinic_Visit.browse", "petclinic_Veterinarian.browse", "petclinic_Specialty.browse", "petclinic_PetType.browse", "petclinic_MyVisits", "petclinic_Owner.edit", "petclinic_Pet.edit", "petclinic_Veterinarian.edit", "petclinic_Visit.edit", "petclinic_MainScreen", "petclinic_LoginScreen", "petclinic_VisitCancellation.browse"})
     void screens();
+
+    @EntityAttributePolicy(entityClass = VisitCancellation.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = VisitCancellation.class, actions = EntityPolicyAction.READ)
+    void visitCancellation();
 }

@@ -1,0 +1,15 @@
+POST {{baseUrl}}/canvaskit/petclinic-information/initialize
+Content-Type: application/json
+
+{
+  "workspace_id": "abcd123",
+  "admin": { },
+  "conversation": { },
+  "contact": { }
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}

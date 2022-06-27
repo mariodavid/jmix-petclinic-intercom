@@ -9,7 +9,8 @@ public enum VisitTreatmentStatus implements EnumClass<String> {
 
     UPCOMING("UPCOMING"),
     IN_PROGRESS("IN_PROGRESS"),
-    DONE("DONE");
+    DONE("DONE"),
+    CANCELLED("CANCELLED");
 
     private String id;
 

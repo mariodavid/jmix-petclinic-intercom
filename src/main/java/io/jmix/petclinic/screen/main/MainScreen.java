@@ -66,7 +66,9 @@ public class MainScreen extends Screen implements Window.HasWorkArea {
         intercom.setUserEmail(currentUser().getEmail());
         intercom.setUserId(currentUser().getId().toString());
         intercom.extend(UI.getCurrent());
-        intercom.setUserData("extraAttribute", "John Doe");
+        intercom.setUserData("name", currentUser().getDisplayName());
+        intercom.setUserData("background_color", "#867AEB");
+        intercom.setUserData("action_color", "#4D3DE1");
     }
 
     private User currentUser() {

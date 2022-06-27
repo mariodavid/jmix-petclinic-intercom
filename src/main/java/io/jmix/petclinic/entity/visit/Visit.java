@@ -1,11 +1,15 @@
 package io.jmix.petclinic.entity.visit;
 
+import io.jmix.core.Messages;
+import io.jmix.core.MetadataTools;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.JmixProperty;
+import io.jmix.core.metamodel.datatype.DatatypeFormatter;
 import io.jmix.petclinic.entity.NamedEntity;
 import io.jmix.petclinic.entity.User;
 import io.jmix.petclinic.entity.pet.Pet;
@@ -99,7 +103,6 @@ public class Visit {
     @Column(name = "TREATMENT_STATUS")
     private String treatmentStatus;
 
-    @Transient
     @JmixProperty
     @DependsOnProperties({"type"})
     public String getTypeStyle() {
@@ -108,7 +111,6 @@ public class Visit {
                 .orElse("");
     }
 
-    @Transient
     @JmixProperty
     @DependsOnProperties({"pet"})
     public String getPetName() {
@@ -248,5 +250,11 @@ public class Visit {
 
     private boolean inTreatmentStatus(VisitTreatmentStatus visitTreatmentStatus) {
         return getTreatmentStatus().equals(visitTreatmentStatus);
+    }
+
+    @InstanceName
+    @DependsOnProperties({"type", "pet", "visitStart"})
+    public String getInstanceName(Messages messages, MetadataTools metadataTools, DatatypeFormatter datatypeFormatter) {
+        return String.format("%s, %s - %s", messages.getMessage(type), metadataTools.getInstanceName(pet), datatypeFormatter.formatLocalDateTime(visitStart));
     }
 }

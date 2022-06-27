@@ -5,6 +5,8 @@
         <item screen="petclinic_Visit.browse" caption="msg://io.jmix.petclinic.screen.visit/visitBrowse.menu"/>
         <item screen="petclinic_Pet.browse" caption="msg://io.jmix.petclinic.screen.pet.pet/petBrowse.menu"/>
         <item screen="petclinic_Owner.browse" caption="msg://io.jmix.petclinic.screen.owner/ownerBrowse.menu"/>
+        <item screen="petclinic_VisitCancellation.browse"
+              caption="msg://io.jmix.petclinic.screen.visit.cancellation/visitCancellationBrowse.menu"/>
     </menu>
     <menu id="application-masterdata" caption="msg://io.jmix.petclinic/menu.application-masterdata" insertBefore="administration">
         <item screen="petclinic_Veterinarian.browse"

@@ -7,6 +7,7 @@ import io.jmix.petclinic.entity.pet.PetType;
 import io.jmix.petclinic.entity.veterinarian.Specialty;
 import io.jmix.petclinic.entity.veterinarian.Veterinarian;
 import io.jmix.petclinic.entity.visit.Visit;
+import io.jmix.petclinic.entity.visit.VisitCancellation;
 import io.jmix.security.model.EntityAttributePolicyAction;
 import io.jmix.security.model.EntityPolicyAction;
 import io.jmix.security.role.annotation.EntityAttributePolicy;
@@ -50,4 +51,8 @@ public interface VeterinarianRole {
 
     @ScreenPolicy(screenIds = {"petclinic_Visit.browse", "petclinic_Pet.browse", "petclinic_Owner.browse", "petclinic_Veterinarian.browse", "petclinic_Specialty.browse", "petclinic_PetType.browse", "petclinic_Visit.edit", "petclinic_Veterinarian.edit", "petclinic_Specialty.lookup", "petclinic_Pet.edit", "petclinic_Owner.edit", "petclinic_MainScreen", "petclinic_LoginScreen"})
     void screens();
+
+    @EntityAttributePolicy(entityClass = VisitCancellation.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
+    @EntityPolicy(entityClass = VisitCancellation.class, actions = EntityPolicyAction.ALL)
+    void visitCancellation();
 }

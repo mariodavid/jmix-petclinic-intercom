@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://visitCancellationBrowse.caption"
+        focusComponent="visitCancellationsTable">
+    <data readOnly="true">
+        <collection id="visitCancellationsDc"
+                    class="io.jmix.petclinic.entity.visit.VisitCancellation">
+            <fetchPlan extends="_base">
+                <property name="visit" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="visitCancellationsDl">
+                <query>
+                    <![CDATA[select e from petclinic_VisitCancellation e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="visitCancellationsTable" spacing="true">
+        <filter id="filter"
+                dataLoader="visitCancellationsDl">
+            <properties include=".*"/>
+        </filter>
+        <table id="visitCancellationsTable"
+               width="100%"
+               dataContainer="visitCancellationsDc">
+            <actions>
+                <action id="create" type="create" caption="msg://cancelVisit" icon="CANCEL"/>
+                <action id="view" type="view" />
+            </actions>
+            <columns>
+                <column id="visit"/>
+                <column id="reason"/>
+                <column id="ownerInformed"/>
+                <column id="costCoverage"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="visitCancellationsTable.create"/>
+                <button id="viewBtn" action="visitCancellationsTable.view"/>
+            </buttonsPanel>
+        </table>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

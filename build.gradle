@@ -1,6 +1,7 @@
 plugins {
     id 'io.jmix' version '1.2.0'
     id 'java'
+    id "io.freefair.lombok" version "6.5.0.2"
 }
 
 apply plugin: 'org.springframework.boot'
@@ -12,8 +13,9 @@ jmix {
 
 group = 'io.jmix'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
 
 repositories {
     mavenCentral()
@@ -21,6 +23,7 @@ repositories {
         url 'https://global.repo.jmix.io/repository/public'
     }
 }
+
 
 dependencies {
     implementation 'io.jmix.core:jmix-core-starter'
@@ -34,6 +37,8 @@ dependencies {
     implementation 'io.jmix.security:jmix-security-ui-starter'
     implementation 'io.jmix.security:jmix-security-data-starter'
     implementation 'io.jmix.localfs:jmix-localfs-starter'
+
+    implementation 'io.intercom:intercom-java:2.8.2'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
