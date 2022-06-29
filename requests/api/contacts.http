@@ -1,0 +1,101 @@
+# curl https://api.intercom.io/contacts
+#-H 'Authorization:Bearer <Your access token>'
+#-H 'Accept:application/json'
+
+## List all Contacts
+
+GET {{baseUrl}}/contacts
+Authorization: Bearer {{accessToken}}
+Accept: application/json
+
+###
+
+## Find Contact by external ID (does not work, but is implemented in the Java SDK)
+
+GET {{baseUrl}}/contacts?user_id=bfde2c4f-3e00-8778-2667-563426d2e267
+Authorization: Bearer {{accessToken}}
+Accept: application/json
+
+###
+
+## Find Contact by email (does not work, but is implemented in the Java SDK)
+
+GET {{baseUrl}}/contacts?email=joy@petclinic.com
+Authorization: Bearer {{accessToken}}
+Accept: application/json
+
+
+###
+
+## Search for Contacts by external ID (works)
+
+POST {{baseUrl}}/contacts/search
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+ "query":  {
+    "field": "external_id",
+    "operator": "=",
+    "value": "1dd854d8-b5a2-79d5-5734-2207aa949ec4"
+  }
+}
+
+
+
+###
+
+## Search for Contacts by Email (works)
+
+POST {{baseUrl}}/contacts/search
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+ "query":  {
+    "field": "email",
+    "operator": "=",
+    "value": "joy@petclinic.com"
+  }
+}
+
+
+###
+
+## Create a Contact
+
+POST {{baseUrl}}/contacts
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "role": "user",
+  "external_id": "hoban-washburn-{{$randomInt}}",
+  "email": "wash-{{$randomInt}}@serenity.io",
+  "phone": "+1123456789",
+  "name": "Hoban Washburn"
+}
+
+###
+
+## Update a Contact
+
+## 1. Lookup internal ID of the Intercom Contact via Search API
+
+## 2. Update based on the internal ID of Intercom
+PUT {{baseUrl}}/contacts/62bac4eefe45c1ee3a1da4ff
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "role": "user",
+  "external_id": "hoban-washburn-259",
+  "email": "wash-455@serenity.io",
+  "phone": "+1123456789{{$randomInt}}",
+  "name": "Hoban Washburn"
+}
+

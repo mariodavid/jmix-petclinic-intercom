@@ -253,8 +253,8 @@ public class Visit {
     }
 
     @InstanceName
-    @DependsOnProperties({"type", "pet", "visitStart"})
-    public String getInstanceName(Messages messages, MetadataTools metadataTools, DatatypeFormatter datatypeFormatter) {
-        return String.format("%s, %s - %s", messages.getMessage(type), metadataTools.getInstanceName(pet), datatypeFormatter.formatLocalDateTime(visitStart));
+    @DependsOnProperties({"pet", "visitStart"})
+    public String getInstanceName(MetadataTools metadataTools, DatatypeFormatter datatypeFormatter) {
+        return String.format("%s - %s", metadataTools.getInstanceName(pet), datatypeFormatter.formatLocalDateTime(visitStart));
     }
 }

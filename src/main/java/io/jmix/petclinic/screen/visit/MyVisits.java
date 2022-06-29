@@ -4,12 +4,17 @@ import io.jmix.core.DataManager;
 import io.jmix.core.security.CurrentAuthentication;
 import io.jmix.petclinic.entity.visit.Visit;
 import io.jmix.petclinic.entity.visit.VisitTreatmentStatus;
+import io.jmix.petclinic.intercom.notification.IntercomNotifications;
+import io.jmix.petclinic.intercom.notification.event.EventMetadata;
+import io.jmix.petclinic.intercom.notification.event.TreatmentFinishedEvent;
+import io.jmix.petclinic.intercom.notification.event.TreatmentStartedEvent;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.action.Action;
 import io.jmix.ui.action.list.EditAction;
 import io.jmix.ui.component.Table;
 import io.jmix.ui.model.CollectionLoader;
 import io.jmix.ui.model.InstanceContainer;
+import io.jmix.ui.navigation.CrockfordUuidEncoder;
 import io.jmix.ui.navigation.Route;
 import io.jmix.ui.screen.LookupComponent;
 import io.jmix.ui.screen.MasterDetailScreen;
@@ -20,6 +25,7 @@ import io.jmix.ui.screen.UiDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
+import java.util.Map;
 
 @UiController("petclinic_MyVisits")
 @UiDescriptor("my-visits.xml")
@@ -46,6 +52,8 @@ public class MyVisits extends MasterDetailScreen<Visit> {
     protected DataManager dataManager;
     @Autowired
     protected MessageBundle messageBundle;
+    @Autowired
+    protected IntercomNotifications intercomNotifications;
 
     @Subscribe
     protected void onInit(InitEvent event) {
@@ -76,6 +84,11 @@ public class MyVisits extends MasterDetailScreen<Visit> {
         else {
             updateTreatmentTo(visit, VisitTreatmentStatus.IN_PROGRESS);
             petTreatmentSuccessMessage("treatmentStarted", visit.getPetName());
+            intercomNotifications.notify(
+                    TreatmentStartedEvent.builder()
+                            .visit(visit)
+                            .build()
+            );
         }
     }
 
@@ -89,6 +102,12 @@ public class MyVisits extends MasterDetailScreen<Visit> {
         else {
             updateTreatmentTo(visit, VisitTreatmentStatus.DONE);
             petTreatmentSuccessMessage("treatmentFinished", visit.getPetName());
+            intercomNotifications.notify(
+                    TreatmentFinishedEvent.builder()
+                            .visit(visit)
+                            .build()
+            );
+
         }
     }
 

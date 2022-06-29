@@ -16,3 +16,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+.env
+
+requests/api/http-client.env.json

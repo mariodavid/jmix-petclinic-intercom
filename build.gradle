@@ -42,6 +42,11 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // for WebClient
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.77.Final:osx-aarch_64'
+
+
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -61,6 +66,7 @@ dependencies {
 
     testImplementation 'io.jmix.ui:jmix-ui-test-assist'
     implementation("org.postgresql:postgresql")
+    implementation("io.jmix.quartz:jmix-quartz-starter")
 }
 
 test {

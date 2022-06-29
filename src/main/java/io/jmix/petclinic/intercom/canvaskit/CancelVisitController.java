@@ -110,7 +110,7 @@ public class CancelVisitController {
                         .options(cancellationCoverageOptions())
                         .build(),
                 CheckboxComponent.builder()
-                        .label("Owner informed")
+                        .label("Communication")
                         .id("ownerInformed")
                         .options(List.of(Option.builder()
                                 .id("ownerInformed")
