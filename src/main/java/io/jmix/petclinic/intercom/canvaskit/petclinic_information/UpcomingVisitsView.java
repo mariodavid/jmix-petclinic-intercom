@@ -68,7 +68,7 @@ public class UpcomingVisitsView implements CanvaskitView {
                 .image(imageForStatus(visit.getTreatmentStatus()))
                 .imageWidth(32)
                 .imageHeight(32)
-                .action(UrlAction.builder().url(String.format("http://localhost:8080/#main/visits/edit?id=%s", CrockfordUuidEncoder.encode(visit.getId()))).build())
+                .action(UrlAction.builder().url(String.format("https://jmix-petclinic-intercom.herokuapp.com/#main/visits/edit?id=%s", CrockfordUuidEncoder.encode(visit.getId()))).build())
                 .build();
     }
 
