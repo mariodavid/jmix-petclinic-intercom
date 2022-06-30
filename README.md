@@ -272,7 +272,16 @@ When a Nurse starts a treatment in the Petclinic app, the Intercom bot should as
 can then agree to start a conversation with a Doctor. The bot asks a couple of questions to determine which Visit it is about
 and what questions the Nurse has. All of this information is then transferred to a Doctor as a Conversation in Intercom.
 
-
+#### Custom Bot Configuration
 ![Event based Bot Overview](img/event-based-bot-overview.png)
 
 ![Event based Bot Questions](img/event-based-bot-questions.png)
+
+#### Custom Bot in Action
+
+![Event based Bot in Action](img/event-based-bot-in-action.png)
+
+
+![Event based Bot in Action Usage](img/event-based-bot-in-action-usage.gif)
+
+
