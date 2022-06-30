@@ -23,14 +23,16 @@ public class IntercomNotifications {
 
         Intercom.setToken(intercomSyncConfig.getAccessToken());
 
-        String userId = ((User) currentAuthentication.getUser()).getId().toString();
-
         Event intercomEvent = new Event()
                 .setEventName(event.getEventName())
-                .setUserID(userId)
+                .setUserID(currentUserId())
                 .setCreatedAt(event.getCreatedAt())
                 .setMetadata(event.getMetadata(messages, datatypeFormatter));
 
         Event.create(intercomEvent);
+    }
+
+    private String currentUserId() {
+        return ((User) currentAuthentication.getUser()).getId().toString();
     }
 }
