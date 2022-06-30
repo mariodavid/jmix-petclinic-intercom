@@ -7,11 +7,13 @@
 
 This example shows how to integrate Jmix with Intercom in various ways. 
 
-The final application can be found at: https://jmix-petclinic-intercom.herokuapp.com/ (initial load takes long, since Heroku spins up the dyno).
+The final application can be found at: https://jmix-petclinic-intercom.herokuapp.com/ 
 
+Note: initial load can take long (up to 30 seconds), since Heroku starts the application on demand.
 
+## Table of Content
 
-This documentation covers the following use-cases for the integration:
+This example covers the following use-cases for the integration:
 
 1. [Installation](#1-installation)
     * [Jmix Petclinic Intercom Widget Integration](#jmix-petclinic-intercom-widget-integration)
