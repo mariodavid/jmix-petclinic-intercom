@@ -1,4 +1,4 @@
-package io.jmix.petclinic.intercom.canvaskit.api;
+package io.jmix.petclinic.intercom.canvaskit.api.ui;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;

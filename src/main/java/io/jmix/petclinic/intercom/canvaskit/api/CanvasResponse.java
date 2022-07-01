@@ -1,12 +1,12 @@
 package io.jmix.petclinic.intercom.canvaskit.api;
 
-import io.jmix.petclinic.intercom.canvaskit.CanvaskitView;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 
 @Data
@@ -21,13 +21,14 @@ public class CanvasResponse {
                 .canvas(canvaskitView.render())
                 .build();
     }
-    public static CanvasResponse withComponents(List<Component> components) {
-        return CanvasResponse.builder()
-                .canvas(Canvas.builder()
-                        .content(Content.builder()
-                                .components(components)
-                                .build())
-                        .build())
-                .build();
+
+    public static ResponseEntity<CanvasResponse> create(CanvaskitView canvaskitView) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(
+                        fromView(canvaskitView)
+                );
     }
 }

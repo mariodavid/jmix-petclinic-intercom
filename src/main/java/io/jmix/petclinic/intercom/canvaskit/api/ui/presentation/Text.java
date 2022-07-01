@@ -1,11 +1,11 @@
-package io.jmix.petclinic.intercom.canvaskit.api.presentation;
+package io.jmix.petclinic.intercom.canvaskit.api.ui.presentation;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.jmix.petclinic.intercom.canvaskit.api.Align;
-import io.jmix.petclinic.intercom.canvaskit.api.Component;
-import io.jmix.petclinic.intercom.canvaskit.api.ComponentType;
-import io.jmix.petclinic.intercom.canvaskit.api.Style;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.Align;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.Component;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.ComponentType;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.Style;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -129,6 +129,78 @@ This is done by using creating a custom CanvasKit app, that requests a custom UI
 The petclinic app sends back information about the to-be-rendered UI in Intercom through a specific JSON structure that
 represents this UI.
 
+![Canvas Kit Flow Overview](img/canvaskit-flow-overview.png)
+
+#### Implementation
+
+The implementation of this Webhook interaction is done via regular Spring MVC controllers. In particular in this example the [PetclinicInformationController](src/main/java/io/jmix/petclinic/intercom/canvaskit/petclinic_information/PetclinicInformationController.java)
+is handling the Webhook requests for rendering the List of upcoming visits. It performs the following steps:
+
+1. looks up the User entity (Nurse) based on the Contact information of the Conversation in the Webhook request
+2. Loads the upcoming visits of the Nurse
+3. creates object tree representing the UI layout definition in Intercom
+
+For the first step to be successful, it requires the external ID to be present in the Contact in Intercom. This is true, due to the fact that when the Messenger initializes in the [MainScreen](https://github.com/mariodavid/jmix-petclinic-intercom/blob/963f64a24389d5beb3f775314418a77529f74594/src/main/java/io/jmix/petclinic/screen/main/MainScreen.java#L67),
+the UUID of the current user is passed in.
+
+For the last step of rendering the UI, in the Jmix Petclinic there are POJOs for the JSON representation of all the UI components, that can be rendered (like button, list, etc.). Intercom does not provide Java classes for those UI components.
+
+This is an example of the JSON response that defines how the UI should be rendered in the Intercom inbox: 
+```json
+{
+    "canvas": {
+        "content": {
+            "components": [
+                {
+                    "id": "text",
+                    "style": "header",
+                    "text": "Upcoming Visits",
+                    "type": "text"
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "items": [
+                        {
+                            "id": "ea31793b-866a-03a5-5764-69e5cadc14b7",
+                            "title": "Goldeen",
+                            "subtitle": "Other",
+                            "tertiary_text": "28. June 10:00",
+                            "image": "https://cdn1.iconfinder.com/data/icons/essentials-pack/96/clock_time_alarm_watch_hour-128.png",
+                            "image_width": 32,
+                            "image_height": 32,
+                            "disabled": false,
+                            "action": {
+                                "url": "https://jmix-petclinic-intercom.herokuapp.com/#main/visits/edit?id=7a65wkq1ka0ejnes39wq5dr55q",
+                                "type": "url"
+                            },
+                            "type": "item"
+                        },
+                        {
+                            "id": "a6e254a9-ac3d-1441-455c-44cd8cf99d81",
+                            "title": "Crobat",
+                            "subtitle": "Regular Checkup",
+                            "tertiary_text": "28. June 11:30",
+                            "image": "https://cdn1.iconfinder.com/data/icons/essentials-pack/96/clock_time_alarm_watch_hour-128.png",
+                            "image_width": 32,
+                            "image_height": 32,
+                            "disabled": false,
+                            "action": {
+                                "url": "https://jmix-petclinic-intercom.herokuapp.com/#main/visits/edit?id=56w9aakb1x2h0maq24sp6fk7c1",
+                                "type": "url"
+                            },
+                            "type": "item"
+                        }
+                    ],
+                    "type": "list"
+                }
+            ]
+        }
+    }
+}
+```
+
 See more information on the implementation:
 * [PetclinicInformationController](src/main/java/io/jmix/petclinic/intercom/canvaskit/petclinic_information/PetclinicInformationController.java)
 * [package petclinic_information](src/main/java/io/jmix/petclinic/intercom/canvaskit/petclinic_information)

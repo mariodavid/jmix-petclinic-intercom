@@ -1,6 +1,7 @@
 package io.jmix.petclinic;
 
 import com.google.common.base.Strings;
+import io.jmix.petclinic.intercom.sync.IntercomSyncConfig;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,8 @@ public class JmixPetclinicApplication {
 
 	@Autowired
 	private Environment environment;
+	@Autowired
+	private IntercomSyncConfig intercomSyncConfig;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JmixPetclinicApplication.class, args);
@@ -51,5 +54,7 @@ public class JmixPetclinicApplication {
 
 		LoggerFactory.getLogger(JmixPetclinicApplication.class)
 				.info(applicationStartedMessage);
+		LoggerFactory.getLogger(JmixPetclinicApplication.class)
+				.info(String.format("Access token: %s", intercomSyncConfig.getAccessToken()));
 	}
 }

@@ -1,37 +1,41 @@
-package io.jmix.petclinic.intercom.canvaskit.api.presentation;
+package io.jmix.petclinic.intercom.canvaskit.api.ui.presentation;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.jmix.petclinic.intercom.canvaskit.api.Component;
-import io.jmix.petclinic.intercom.canvaskit.api.ComponentType;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.*;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.action.UrlAction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @Builder
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class Spacer implements Component {
-
+public class Image implements Component {
     String id;
-    SpacerSize size;
+    String url;
+    ImageAlign align;
+    int width;
+    int height;
+    boolean rounded;
+    String bottomMargin;
+    UrlAction action;
 
     @Override
     public ComponentType getType() {
-        return ComponentType.SPACER;
+        return ComponentType.IMAGE;
     }
 
+
     @RequiredArgsConstructor
-    public enum SpacerSize {
-        XS("xs"),
-        S("s"),
-        M("M"),
-        L("l"),
-        XL("xl");
+    public enum ImageAlign {
+        LEFT("left"),
+        CENTER("center"),
+        RIGHT("right"),
+        FULL_WIDTH("full_width");
 
         private final String id;
 

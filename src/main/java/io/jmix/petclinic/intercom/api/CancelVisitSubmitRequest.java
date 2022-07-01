@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.intercom.api.Admin;
 import io.intercom.api.Conversation;
 import io.jmix.petclinic.entity.CancellationCostCoverage;
-import io.jmix.petclinic.intercom.canvaskit.api.Action;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

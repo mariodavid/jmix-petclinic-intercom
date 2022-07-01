@@ -1,19 +1,21 @@
 package io.jmix.petclinic.intercom.canvaskit.petclinic_information;
 
+import io.jmix.core.Id;
 import io.jmix.core.Messages;
 import io.jmix.core.security.SystemAuthenticator;
 import io.jmix.petclinic.app.VisitRepository;
+import io.jmix.petclinic.entity.User;
 import io.jmix.petclinic.entity.visit.Visit;
 import io.jmix.petclinic.intercom.api.InitializeRequest;
 import io.jmix.petclinic.intercom.canvaskit.api.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/intercom/petclinic-information")
 public class PetclinicInformationController {
@@ -27,22 +29,25 @@ public class PetclinicInformationController {
 
     @PostMapping("/initialize")
     public ResponseEntity<CanvasResponse> initialize(
-            @RequestBody InitializeRequest initializeRequest
+            @RequestBody InitializeRequest data
     ) {
 
+        if (data.getContact().getExternalId() == null) {
+            log.warn("No external ID found in Contact");
+
+            return CanvasResponse.create(
+                new NoVisitsFoundForContactView(data.getContact())
+            );
+        }
+
         List<Visit> latestActiveVisitsForUser = systemAuthenticator.withSystem(() ->
-                visitRepository.activeVisitsForUser(initializeRequest.getContact().getExternalId())
+                visitRepository.activeVisitsForUser(data.getContact().getExternalId())
                         .subList(0, 4)
         );
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(
-                    CanvasResponse.fromView(
-                            new UpcomingVisitsView(messages, latestActiveVisitsForUser)
-                    )
-                );
+        return CanvasResponse.create(
+                new UpcomingVisitsView(messages, latestActiveVisitsForUser)
+        );
 
     }
 }

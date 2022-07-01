@@ -1,13 +1,13 @@
 package io.jmix.petclinic.intercom.canvaskit.cancel_visit;
 
 import io.jmix.petclinic.intercom.canvaskit.api.Canvas;
-import io.jmix.petclinic.intercom.canvaskit.api.Component;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.Component;
 import io.jmix.petclinic.intercom.canvaskit.api.Content;
-import io.jmix.petclinic.intercom.canvaskit.api.action.SubmitAction;
-import io.jmix.petclinic.intercom.canvaskit.api.interactive.ButtonComponent;
-import io.jmix.petclinic.intercom.canvaskit.api.presentation.Divider;
-import io.jmix.petclinic.intercom.canvaskit.api.presentation.Text;
-import io.jmix.petclinic.intercom.canvaskit.CanvaskitView;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.action.SubmitAction;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.interactive.ButtonComponent;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.presentation.Divider;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.presentation.Text;
+import io.jmix.petclinic.intercom.canvaskit.api.CanvaskitView;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

@@ -1,25 +1,23 @@
-package io.jmix.petclinic.intercom.canvaskit.api.action;
+package io.jmix.petclinic.intercom.canvaskit.api.ui.action;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.jmix.petclinic.intercom.canvaskit.api.Action;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.Action;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class UrlAction implements Action {
+public class SheetAction implements Action {
 
     String url;
 
     @Override
     public ActionType getType() {
-        return ActionType.URL;
+        return ActionType.SHEET;
     }
 
 }

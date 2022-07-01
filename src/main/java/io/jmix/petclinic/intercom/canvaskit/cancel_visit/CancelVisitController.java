@@ -13,8 +13,6 @@ import io.jmix.petclinic.intercom.api.CancelVisitSubmitRequest;
 import io.jmix.petclinic.intercom.api.Contact;
 import io.jmix.petclinic.intercom.api.InitializeRequest;
 import io.jmix.petclinic.intercom.canvaskit.api.CanvasResponse;
-import io.jmix.petclinic.intercom.canvaskit.cancel_visit.CancelVisitFormView;
-import io.jmix.petclinic.intercom.canvaskit.cancel_visit.VisitCancelledConfirmationView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,9 +46,9 @@ public class CancelVisitController {
 
     @PostMapping("/initialize")
     public ResponseEntity<CanvasResponse> initialize(
-            @RequestBody InitializeRequest initializeRequest
+            @RequestBody InitializeRequest data
     ) {
-        return cancelVisitForm(initializeRequest.getContact());
+        return cancelVisitForm(data.getContact());
     }
 
     @PostMapping("/submit")
@@ -69,24 +67,18 @@ public class CancelVisitController {
 
         log.info("Visit cancelled via Intercom: {}", cancelledVisit);
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(CanvasResponse.fromView(new VisitCancelledConfirmationView()));
+        return CanvasResponse.create(new VisitCancelledConfirmationView());
 
     }
 
     private ResponseEntity<CanvasResponse> cancelVisitForm(Contact contact) {
-        List<Visit> visitsToSelect = latestActiveVisitsForUser(contact);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(
-                        CanvasResponse.fromView(
-                                new CancelVisitFormView(messages, metadataTools, visitsToSelect)
-                        )
-                );
+        return CanvasResponse.create(
+            new CancelVisitFormView(
+                    messages,
+                    metadataTools,
+                    latestActiveVisitsForUser(contact)
+            )
+        );
     }
 
     private List<Visit> latestActiveVisitsForUser(Contact contact) {

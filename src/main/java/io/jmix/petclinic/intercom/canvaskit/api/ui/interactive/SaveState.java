@@ -1,13 +1,13 @@
-package io.jmix.petclinic.intercom.canvaskit.api;
+package io.jmix.petclinic.intercom.canvaskit.api.ui.interactive;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum Align {
-    LEFT("left"),
-    CENTER("center"),
-    RIGHT("right");
+public enum SaveState {
+    UNSAVED("unsaved"),
+    SAVED("saved"),
+    FAILED("failed");
 
     private final String id;
 

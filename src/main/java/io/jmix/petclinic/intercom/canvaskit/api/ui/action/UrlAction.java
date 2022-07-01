@@ -1,7 +1,8 @@
-package io.jmix.petclinic.intercom.canvaskit.api.interactive;
+package io.jmix.petclinic.intercom.canvaskit.api.ui.action;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import io.jmix.petclinic.intercom.canvaskit.api.ui.Action;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,13 +11,13 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class Option {
-    String id;
-    String text;
-    boolean disabled;
+public class UrlAction implements Action {
 
-    public String getType() {
-        return "option";
+    String url;
+
+    @Override
+    public ActionType getType() {
+        return ActionType.URL;
     }
 
 }
