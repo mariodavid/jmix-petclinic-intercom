@@ -3,29 +3,33 @@ package io.jmix.petclinic.intercom.canvaskit.book_visit;
 import io.jmix.core.Messages;
 import io.jmix.core.security.SystemAuthenticator;
 import io.jmix.petclinic.app.PetRepository;
-import io.jmix.petclinic.app.VisitRepository;
+import io.jmix.petclinic.app.visit.VisitBookingService;
 import io.jmix.petclinic.entity.pet.Pet;
 import io.jmix.petclinic.entity.visit.Visit;
+import io.jmix.petclinic.intercom.canvaskit.book_visit.model.BookVisitRequest;
 import io.jmix.petclinic.intercom.canvaskit.book_visit.model.PetResponse;
+import io.jmix.petclinic.intercom.canvaskit.book_visit.model.VisitResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
 @RequestMapping("/intercom/book-visit")
+@RequiredArgsConstructor
 public class BookVisitController {
-    @Autowired
-    private SystemAuthenticator systemAuthenticator;
-    @Autowired
-    private PetRepository petRepository;
+    private final SystemAuthenticator systemAuthenticator;
+    private final PetRepository petRepository;
+    private final VisitBookingService visitBookingService;
+    private final Messages messages;
 
 
     @GetMapping("/pets")
@@ -41,7 +45,6 @@ public class BookVisitController {
                     .body(List.of());
         }
 
-
         List<PetResponse> petsForOwner = systemAuthenticator.withSystem(() ->
                 petRepository.petsOfOwner(ownerEmail)
         )
@@ -53,6 +56,30 @@ public class BookVisitController {
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(petsForOwner);
+    }
+
+    @PostMapping(value = "/book", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<VisitResponse> bookVisit(
+            @RequestBody BookVisitRequest data
+    ) {
+
+        log.info("Retrieved Visit Booking Request: {}", data);
+
+        Visit bookedVisit = systemAuthenticator.withSystem(() ->
+            visitBookingService.bookRegularCheckup(data)
+        );
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+                .body(VisitResponse.builder()
+                        .id(bookedVisit.getId())
+                        .type(messages.getMessage(bookedVisit.getType()))
+                        .visitStart(formatDate(bookedVisit))
+                        .build());
+    }
+
+    private String formatDate(Visit bookedVisit) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM HH:mm");
+        return bookedVisit.getVisitStart().format(formatter);
     }
 
     private PetResponse toPetResponse(Pet pet) {
