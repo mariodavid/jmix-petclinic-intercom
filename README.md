@@ -402,3 +402,20 @@ Here you can see the main parts of the Configuration of the Bot with custom acti
 See more information on the implementation:
 * [BookVisitController](src/main/java/io/jmix/petclinic/intercom/canvaskit/book_visit/BookVisitController.java)
 * [package book_visit](src/main/java/io/jmix/petclinic/intercom/canvaskit/book_visit)
+
+
+### Provide Answers to common owner questions
+
+The last example is not directly related to the Integration, but it is a general feature of Intercom. There is another
+type of Bot called "Resolution Bot". THe idea behind it is to provide common answers within the Messenger during the conversation.
+
+Let's create a common Answer to the question: "How can I call you?" from some potential Owner when visiting https://jmix-petclinic-intercom.netlify.app.
+
+Basically it is only needed to provide either sample questions or pick one from previous Conversations through Intercom.
+
+The system will then go ahead and suggest those questions when an Owner is typing similar questions. Technology wise, Intercom
+is using Machine Learning together with natural language processing to provide best matching questions when Owners type in their question:
+
+![Resolution Bot Config 1](img/resolution-bot-1.png)
+
+![Resolution Bot Config 2](img/resolution-bot-2.png)
