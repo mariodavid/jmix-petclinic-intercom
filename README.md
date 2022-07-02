@@ -24,7 +24,8 @@ This example covers the following use-cases for the integration:
     * [See recent events in Intercom inbox](#see-recent-events-in-intercom-inbox)
     * [Cancel Visits from within the Intercom Inbox](#cancel-visits-from-within-the-intercom-inbox)
 3. [Messenger Integration](#3-messenger-integration)
-    * [Trigger outbound Bot through events](#trigger-outbound-bot-through-events)
+    * [Proactively offer support when Treatment started](#proactively-offer-support-when-treatment-started)
+    * [Visit Booking for Owners through the Messenger](#visit-booking-for-owners-through-the-messenger)
 
 
 ## 1. Installation
