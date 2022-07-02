@@ -52,6 +52,8 @@ public class BookVisitController {
                 .map(this::toPetResponse)
                 .collect(Collectors.toList());
 
+        log.info("Return following Pets: {}", petsForOwner);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -68,13 +70,19 @@ public class BookVisitController {
         Visit bookedVisit = systemAuthenticator.withSystem(() ->
             visitBookingService.bookRegularCheckup(data)
         );
+
+        VisitResponse response = VisitResponse.builder()
+                .id(bookedVisit.getId())
+                .type(messages.getMessage(bookedVisit.getType()))
+                .visitStart(formatDate(bookedVisit))
+                .build();
+
+
+        log.info("Return Visit Response: {}", response);
+
         return ResponseEntity
             .status(HttpStatus.CREATED)
-                .body(VisitResponse.builder()
-                        .id(bookedVisit.getId())
-                        .type(messages.getMessage(bookedVisit.getType()))
-                        .visitStart(formatDate(bookedVisit))
-                        .build());
+                .body(response);
     }
 
     private String formatDate(Visit bookedVisit) {

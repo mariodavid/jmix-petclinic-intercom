@@ -1,4 +1,4 @@
-POST {{baseUrl}}/canvaskit/petclinic-information/initialize
+POST {{baseUrl}}/intercom/petclinic-information/initialize
 Content-Type: application/json
 
 {

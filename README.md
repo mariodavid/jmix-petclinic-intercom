@@ -333,12 +333,12 @@ to integrate the two systems in a way so that the users of the Messenger benefit
 the Doctors, as bots take some heavy lifting from their shoulders and reduce the workload of support requests.
 
 
-### Trigger outbound Bot through events
+### Proactively offer support when Treatment started
 
 It is also possible to trigger outbound bots through using incoming events as a trigger. Outbound bots are conversations that
 are triggered proactively by the Intercom messenger to the customer.
 
-Having the events already in place, it is possible to create a bot, that uses this event as a trigger. 
+Having the events already in place from the example before, it is possible to create a bot, that uses this event as a trigger. 
 
 The example use-case for this feature is the following:
 
@@ -347,6 +347,7 @@ can then agree to start a conversation with a Doctor. The bot asks a couple of q
 and what questions the Nurse has. All of this information is then transferred to a Doctor as a Conversation in Intercom.
 
 #### Custom Bot Configuration
+
 ![Event based Bot Overview](img/event-based-bot-overview.png)
 
 ![Event based Bot Questions](img/event-based-bot-questions.png)
@@ -355,7 +356,48 @@ and what questions the Nurse has. All of this information is then transferred to
 
 ![Event based Bot in Action](img/event-based-bot-in-action.png)
 
-
 ![Event based Bot in Action Usage](img/event-based-bot-in-action-usage.gif)
 
 
+### Visit Booking for Owners through the Messenger
+
+Another type of Bot is using another way of integrating external systems like the Petclinic with Intercom.
+
+Custom Actions allow to perform HTTP interactions to external systems. This allows us to fetch e.g. Pets
+of the Owner and directly show it in the Messenger. The Owner can then select a particular Pet. This selection can be used
+for further custom actions, to create a Visit via another Endpoint in the Petclinic application.
+
+The example use-case for this feature is the following:
+
+Currently, the Owners of Pets don't have the ability to book a visit in a self-service manner. With a custom Bot, we
+want to enable the Owners to do exactly this. For this scenario there is the public website for the Jmix Petclinic: https://jmix-petclinic-intercom.netlify.app.
+The Button "Book a Visit" allows pre-registered Owners to book a Visit via the Intercom Messenger.
+
+![Bot Custom Action 1](img/bot-custom-action-1.png)
+
+#### Bot Configuration
+
+The custom Bot is using the feature of [custom actions together with custom objects](https://www.intercom.com/help/en/collections/3510275-custom-actions-and-objects)
+to interact with a Visit Booking REST API of the Petclinic.
+
+Here you can see the main parts of the Configuration of the Bot with custom actions:
+
+![Bot Custom Action Config 1](img/bot-custom-action-config-1.png)
+
+![Bot Custom Action Config 2](img/bot-custom-action-config-2.png)
+
+![Bot Custom Action Config 3](img/bot-custom-action-config-3.png)
+
+![Bot Custom Action Config 4](img/bot-custom-action-config-4.png)
+
+#### Custom Bot with Custom Action in Action
+
+![Bot Custom Action 2](img/bot-custom-action-2.png)
+
+![Bot Custom Action 3](img/bot-custom-action-3.png)
+
+
+
+See more information on the implementation:
+* [BookVisitController](src/main/java/io/jmix/petclinic/intercom/canvaskit/book_visit/BookVisitController.java)
+* [package book_visit](src/main/java/io/jmix/petclinic/intercom/canvaskit/book_visit)
