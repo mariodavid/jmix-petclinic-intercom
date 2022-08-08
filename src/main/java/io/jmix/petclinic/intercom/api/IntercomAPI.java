@@ -129,9 +129,9 @@ public class IntercomAPI {
         log.info("Assigning Conversation: {}", request);
 
         ResponseEntity<Conversation> response = conversationRoutingWebClient()
-                .put()
+                .post()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/conversations/{conversationId}")
+                        .path("/conversations/{conversationId}/parts")
                         .build(conversationId))
                 .bodyValue(request)
                 .retrieve()

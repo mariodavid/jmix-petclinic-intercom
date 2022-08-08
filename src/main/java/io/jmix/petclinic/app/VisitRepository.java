@@ -29,7 +29,7 @@ public class VisitRepository {
 
         return dataManager.load(Visit.class)
                 .query("select v from petclinic_Visit v where v.assignedNurse = :currentNurse and v.treatmentStatus in :possibleTreatmentStatus order by v.visitStart")
-                .parameter("currentNurse", potentialCurrentNurse)
+                .parameter("currentNurse", potentialCurrentNurse.get())
                 .parameter("possibleTreatmentStatus", List.of(VisitTreatmentStatus.UPCOMING, VisitTreatmentStatus.IN_PROGRESS))
                 .fetchPlan(fetchPlanBuilder -> {
                     fetchPlanBuilder.addFetchPlan(FetchPlan.BASE);
