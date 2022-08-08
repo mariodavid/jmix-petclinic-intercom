@@ -4,7 +4,10 @@ import io.jmix.petclinic.intercom.api.model.ContactRequest;
 import io.jmix.petclinic.intercom.api.model.SearchByEmailRequest;
 import io.jmix.petclinic.intercom.api.model.SearchByExternalIdRequest;
 import io.jmix.petclinic.intercom.api.model.SearchContactsResponse;
+import io.jmix.petclinic.intercom.api.model.conversation.UpdateConversationRequest;
+import io.jmix.petclinic.intercom.sync.IntercomConversationRoutingConfig;
 import io.jmix.petclinic.intercom.sync.IntercomSyncConfig;
+import io.jmix.petclinic.intercom.webhook.Conversation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Component
@@ -20,6 +24,7 @@ import java.util.UUID;
 public class IntercomAPI {
 
     private final IntercomSyncConfig intercomSyncConfig;
+    private final IntercomConversationRoutingConfig intercomConversationRoutingConfig;
 
     public List<Contact> findByUserId(UUID userId) {
         ResponseEntity<SearchContactsResponse> response = webClient()
@@ -85,10 +90,36 @@ public class IntercomAPI {
         return response.getBody();
     }
 
+
+    public void markConversationAsPriority(String conversationId) {
+
+        UpdateConversationRequest request = UpdateConversationRequest.builder()
+                .customAttributes(Map.of("custom-priority", true))
+                .build();
+
+        log.info("Marking conversation as priority via custom attribute 'custom-priority': {}", request);
+
+        ResponseEntity<Conversation> response = conversationRoutingWebClient()
+                .put()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/conversations/{conversationId}")
+                        .build(conversationId))
+                .bodyValue(request)
+                .retrieve()
+                .toEntity(Conversation.class)
+                .block();
+    }
+
     private WebClient webClient() {
         return WebClient.builder()
                 .baseUrl(intercomSyncConfig.getBaseUrl())
                 .defaultHeaders(header -> header.setBearerAuth(intercomSyncConfig.getAccessToken()))
+                .build();
+    }
+    private WebClient conversationRoutingWebClient() {
+        return WebClient.builder()
+                .baseUrl(intercomConversationRoutingConfig.getBaseUrl())
+                .defaultHeaders(header -> header.setBearerAuth(intercomConversationRoutingConfig.getAccessToken()))
                 .build();
     }
 
