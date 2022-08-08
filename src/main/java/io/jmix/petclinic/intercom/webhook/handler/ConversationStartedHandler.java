@@ -16,6 +16,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -81,10 +82,15 @@ public class ConversationStartedHandler extends AbstractWebhookHandler<Conversat
     }
 
     private boolean isOwner(String emailAddress) {
-        return dataManager.load(Owner.class)
-                .condition(PropertyCondition.equal("email", emailAddress))
-                .list()
-                .size() == 1;
+        List<Owner> ownersWithEmail = systemAuthenticator.withSystem(() ->
+                dataManager.load(Owner.class)
+                        .condition(PropertyCondition.equal("email", emailAddress))
+                        .list()
+        );
+
+        log.info("Following Owners found with Email '{}': {}", emailAddress, ownersWithEmail);
+
+        return !ownersWithEmail.isEmpty();
     }
 
 }

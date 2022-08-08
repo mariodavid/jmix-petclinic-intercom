@@ -137,5 +137,9 @@ public class IntercomAPI {
                 .retrieve()
                 .toEntity(Conversation.class)
                 .block();
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            log.error("Conversation Assignment was not successful. Error: {}", response);
+        }
     }
 }
