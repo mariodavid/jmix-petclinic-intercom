@@ -83,8 +83,7 @@ public class CancelVisitController {
 
     private List<Visit> latestActiveVisitsForUser(Contact contact) {
         return systemAuthenticator.withSystem(() ->
-                visitRepository.activeVisitsForUser(contact.getExternalId())
-                        .subList(0, 4)
+                visitRepository.latestActiveVisitsForUser(contact.getExternalId())
         );
     }
 

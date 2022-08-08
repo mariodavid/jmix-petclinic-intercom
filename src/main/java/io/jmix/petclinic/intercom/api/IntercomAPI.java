@@ -124,9 +124,9 @@ public class IntercomAPI {
                 .build();
     }
 
-    public void assignToDoctors(String conversationId, AssignConversationRequest request) {
+    public void assignConversation(String conversationId, AssignConversationRequest request) {
 
-        log.info("Marking conversation as priority via custom attribute 'custom-priority': {}", request);
+        log.info("Assigning Conversation: {}", request);
 
         ResponseEntity<Conversation> response = conversationRoutingWebClient()
                 .put()

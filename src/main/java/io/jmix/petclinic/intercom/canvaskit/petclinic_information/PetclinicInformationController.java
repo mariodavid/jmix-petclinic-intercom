@@ -41,8 +41,7 @@ public class PetclinicInformationController {
         }
 
         List<Visit> latestActiveVisitsForUser = systemAuthenticator.withSystem(() ->
-                visitRepository.activeVisitsForUser(data.getContact().getExternalId())
-                        .subList(0, 4)
+                visitRepository.latestActiveVisitsForUser(data.getContact().getExternalId())
         );
 
         return CanvasResponse.create(

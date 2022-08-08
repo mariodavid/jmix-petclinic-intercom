@@ -1,7 +1,6 @@
 package io.jmix.petclinic.intercom.webhook.handler;
 
 import io.jmix.core.DataManager;
-import io.jmix.core.FetchPlan;
 import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.core.security.SystemAuthenticator;
 import io.jmix.petclinic.app.EmployeeRepository;
@@ -58,7 +57,7 @@ public class ConversationStartedHandler extends AbstractWebhookHandler<Conversat
 
         if (potentialNurse.isPresent()) {
             log.info("Nurse found with Email {}. Assign to Doctors Team.", emailAddress);
-            intercomAPI.assignToDoctors(
+            intercomAPI.assignConversation(
                     conversation.getId(),
                     AssignConversationRequest.builder()
                         .assigneeId(IntercomAdminOrTeam.DOCTORS)
