@@ -4,6 +4,7 @@ import io.jmix.petclinic.intercom.api.model.ContactRequest;
 import io.jmix.petclinic.intercom.api.model.SearchByEmailRequest;
 import io.jmix.petclinic.intercom.api.model.SearchByExternalIdRequest;
 import io.jmix.petclinic.intercom.api.model.SearchContactsResponse;
+import io.jmix.petclinic.intercom.api.model.conversation.AssignConversationRequest;
 import io.jmix.petclinic.intercom.api.model.conversation.UpdateConversationRequest;
 import io.jmix.petclinic.intercom.sync.IntercomConversationRoutingConfig;
 import io.jmix.petclinic.intercom.sync.IntercomSyncConfig;
@@ -123,4 +124,18 @@ public class IntercomAPI {
                 .build();
     }
 
+    public void assignToDoctors(String conversationId, AssignConversationRequest request) {
+
+        log.info("Marking conversation as priority via custom attribute 'custom-priority': {}", request);
+
+        ResponseEntity<Conversation> response = conversationRoutingWebClient()
+                .put()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/conversations/{conversationId}")
+                        .build(conversationId))
+                .bodyValue(request)
+                .retrieve()
+                .toEntity(Conversation.class)
+                .block();
+    }
 }

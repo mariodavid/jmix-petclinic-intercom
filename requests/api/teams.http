@@ -1,0 +1,10 @@
+# curl https://api.intercom.io/contacts
+#-H 'Authorization:Bearer <Your access token>'
+#-H 'Accept:application/json'
+
+## List all Contacts
+
+GET {{baseUrl}}/teams
+Authorization: Bearer {{accessToken}}
+Accept: application/json
+
