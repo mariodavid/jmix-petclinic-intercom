@@ -23,9 +23,9 @@ public class IntercomOwnerSyncJobConfiguration {
     }
 
     @Bean
-    public Trigger intercomOwnerSyncTrigger(JobDetail apigeeAppSyncJobDetail) {
-        return TriggerBuilder.newTrigger().forJob(apigeeAppSyncJobDetail)
-            .withIdentity(apigeeAppSyncJobDetail.getKey() + "Trigger")
+    public Trigger intercomOwnerSyncTrigger(JobDetail intercomOwnerSyncJobDetail) {
+        return TriggerBuilder.newTrigger().forJob(intercomOwnerSyncJobDetail)
+            .withIdentity(intercomOwnerSyncJobDetail.getKey() + "Trigger")
             .withDescription("Every minute")
             .withSchedule(simpleSchedule().repeatForever().withIntervalInMinutes(2))
             .build();
