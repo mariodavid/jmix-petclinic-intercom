@@ -15,15 +15,15 @@ public class IntercomOwnerSyncJob implements Job {
     @Override
     @Authenticated
     public void execute(JobExecutionContext context) {
-        log.info("Intercom Owner Sync Job started");
-
-        final boolean appsSyncedSuccessfully = intercomOwnerSync.sync();
-
-        if (appsSyncedSuccessfully) {
-            log.info("Intercom Owner Sync Job successfully finished");
-        }
-        else {
-            log.error("Intercom Owner Sync Job did not finished successfully.");
-        }
+//        log.info("Intercom Owner Sync Job started");
+//
+//        final boolean appsSyncedSuccessfully = intercomOwnerSync.sync();
+//
+//        if (appsSyncedSuccessfully) {
+//            log.info("Intercom Owner Sync Job successfully finished");
+//        }
+//        else {
+//            log.error("Intercom Owner Sync Job did not finished successfully.");
+//        }
     }
 }

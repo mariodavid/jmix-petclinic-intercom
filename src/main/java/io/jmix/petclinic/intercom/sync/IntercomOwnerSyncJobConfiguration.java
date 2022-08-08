@@ -13,22 +13,22 @@ import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 @Configuration
 public class IntercomOwnerSyncJobConfiguration {
 
-//    @Bean
-//    public JobDetail intercomOwnerSyncJobDetail() {
-//        return JobBuilder.newJob().ofType(IntercomOwnerSyncJob.class)
-//            .storeDurably()
-//            .withIdentity(IntercomOwnerSyncJob.class.getSimpleName())
-//            .withDescription("Sync Owner to Intercom")
-//            .build();
-//    }
+    @Bean
+    public JobDetail intercomOwnerSyncJobDetail() {
+        return JobBuilder.newJob().ofType(IntercomOwnerSyncJob.class)
+            .storeDurably()
+            .withIdentity(IntercomOwnerSyncJob.class.getSimpleName())
+            .withDescription("Sync Owner to Intercom")
+            .build();
+    }
 
-//    @Bean
-//    public Trigger intercomOwnerSyncTrigger(JobDetail apigeeAppSyncJobDetail) {
-//        return TriggerBuilder.newTrigger().forJob(apigeeAppSyncJobDetail)
-//            .withIdentity(apigeeAppSyncJobDetail.getKey() + "Trigger")
-//            .withDescription("Every minute")
-//            .withSchedule(simpleSchedule().repeatForever().withIntervalInMinutes(2))
-//            .build();
-//    }
+    @Bean
+    public Trigger intercomOwnerSyncTrigger(JobDetail apigeeAppSyncJobDetail) {
+        return TriggerBuilder.newTrigger().forJob(apigeeAppSyncJobDetail)
+            .withIdentity(apigeeAppSyncJobDetail.getKey() + "Trigger")
+            .withDescription("Every minute")
+            .withSchedule(simpleSchedule().repeatForever().withIntervalInMinutes(2))
+            .build();
+    }
 
 }
