@@ -65,7 +65,7 @@ dependencies {
 
     testImplementation 'io.jmix.ui:jmix-ui-test-assist'
     implementation("io.jmix.quartz:jmix-quartz-starter")
-    implementation 'org.hsqldb:hsqldb'
+    implementation 'org.postgresql:postgresql'
 }
 
 test {

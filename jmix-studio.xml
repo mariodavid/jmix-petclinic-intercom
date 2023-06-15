@@ -30,7 +30,7 @@
                     <option name="generateDdlType" value="CREATE_AND_UPDATE" />
                     <option name="nameLengthMode" value="ORACLE" />
                     <option name="supportedTypes">
-                      <option value="hsql" />
+                      <option value="postgres" />
                     </option>
                   </DataStoreSettingsV2>
                 </value>
@@ -60,6 +60,13 @@
           <option name="pass" value="postgres" />
           <option name="url" value="jdbc:postgresql://localhost/petclinic-empty-7" />
           <option name="user" value="postgres" />
+        </SavedDbProperties>
+        <SavedDbProperties>
+          <option name="databaseName" value="petclinic-empty-7" />
+          <option name="dbType" value="hsqlinmem" />
+          <option name="dbmsVersion" />
+          <option name="url" value="jdbc:hsqldb:mem:petclinic-empty-7" />
+          <option name="user" value="sa" />
         </SavedDbProperties>
       </list>
     </option>
