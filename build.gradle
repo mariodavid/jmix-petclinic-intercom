@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '1.3.0'
+    id 'io.jmix' version '1.5.2'
     id 'java'
     id "io.freefair.lombok" version "6.5.0.2"
 }
@@ -7,7 +7,7 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 jmix {
-    bomVersion = '1.3.1'
+    bomVersion = '1.5.2'
     projectId = 'petclinic'
 }
 
@@ -30,7 +30,7 @@ dependencies {
     implementation 'io.jmix.data:jmix-eclipselink-starter'
     implementation 'io.jmix.ui:jmix-ui-starter'
     implementation 'io.jmix.ui:jmix-ui-data-starter'
-    implementation "io.jmix.ui:jmix-ui-export-starter"
+    implementation 'io.jmix.gridexport:jmix-gridexport-ui-starter'
     implementation 'io.jmix.ui:jmix-ui-widgets'
     widgets 'io.jmix.ui:jmix-ui-widgets'
     implementation 'io.jmix.security:jmix-security-starter'
@@ -64,8 +64,8 @@ dependencies {
 
 
     testImplementation 'io.jmix.ui:jmix-ui-test-assist'
-    implementation("org.postgresql:postgresql")
     implementation("io.jmix.quartz:jmix-quartz-starter")
+    implementation 'org.hsqldb:hsqldb'
 }
 
 test {

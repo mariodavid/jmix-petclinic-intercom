@@ -22,16 +22,17 @@
       </entry>
       <entry key="jmix-petclinic.main">
         <ModuleSettings>
-          <option name="dataStoreOptions">
+          <option name="dataStoreOptionsV2">
             <map>
               <entry key="main">
                 <value>
-                  <DataStoreSettings>
+                  <DataStoreSettingsV2>
                     <option name="generateDdlType" value="CREATE_AND_UPDATE" />
+                    <option name="nameLengthMode" value="ORACLE" />
                     <option name="supportedTypes">
-                      <option value="postgres" />
+                      <option value="hsql" />
                     </option>
-                  </DataStoreSettings>
+                  </DataStoreSettingsV2>
                 </value>
               </entry>
             </map>
@@ -50,6 +51,15 @@
           <option name="host" value=".jmix/hsqldb" />
           <option name="url" value="jdbc:hsqldb:file:.jmix/hsqldb/petclinic-empty-7" />
           <option name="user" value="sa" />
+        </SavedDbProperties>
+        <SavedDbProperties>
+          <option name="databaseName" value="petclinic-empty-7" />
+          <option name="dbType" value="postgres" />
+          <option name="dbmsVersion" />
+          <option name="host" value="localhost" />
+          <option name="pass" value="postgres" />
+          <option name="url" value="jdbc:postgresql://localhost/petclinic-empty-7" />
+          <option name="user" value="postgres" />
         </SavedDbProperties>
       </list>
     </option>
